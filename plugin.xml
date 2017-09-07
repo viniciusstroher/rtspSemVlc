@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="cordova-plugin-rtsp-w3"
       version="1.0">
@@ -29,19 +27,10 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            
-            <activity android:label="RTSP" android:name="org.apache.cordova.rtsp.RtspActivity">
-            </activity>
-
-            <activity android:name="io.vov.vitamio.activity.InitActivity" 
-       android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
-       android:launchMode="singleTop"
-        android:theme="@android:style/Theme.NoTitleBar"
-        android:windowSoftInputMode="stateAlwaysHidden"/>     
+           <activity android:label="RTSP" android:name="org.apache.cordova.rtsp.RtspActivity"></activity>  
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -49,13 +38,11 @@
             <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
-
         </config-file>
 
-        <source-file src="src/android/FakeR.java"          target-dir="src/org/apache/cordova/rtsp" />
+        <source-file src="src/android/FakeR.java"        target-dir="src/org/apache/cordova/rtsp" />
         <source-file src="src/android/Rtsp.java"         target-dir="src/org/apache/cordova/rtsp" />
         <source-file src="src/android/RtspActivity.java" target-dir="src/org/apache/cordova/rtsp" />
-
         <source-file src="src/android/res/layout/rtsp_activity.xml" target-dir="res/layout"/>
 
         <framework src="build.gradle" custom="true" type="gradleReference" />
