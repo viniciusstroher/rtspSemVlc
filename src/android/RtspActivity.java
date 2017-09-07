@@ -41,6 +41,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.SurfaceHolder.Callback;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
@@ -54,7 +55,15 @@ import java.util.Arrays;
 
 import android.widget.Button;
 import android.view.KeyEvent;
-public class RtspActivity extends Activity implements MediaPlayer.OnPreparedListener{
+
+
+
+import java.lang.IllegalArgumentException;
+import java.lang.SecurityException;
+import java.lang.IllegalStateException;
+import java.io.IOException;
+
+public class RtspActivity extends Activity implements MediaPlayer.OnPreparedListener,SurfaceHolder.Callback{
     private final static int VideoSizeChanged = -1;
     private String link_rtsp;
     private FakeR fakeR;
@@ -96,8 +105,8 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
 
         mSurface = (SurfaceView) findViewById(fakeR.getId("id", "surface"));        
         holder   = mSurface.getHolder();
+        holder.addCallback(this);
         holder.setFixedSize(mVideoWidth, mVideoHeight);
-
     }
 
     @Override
@@ -114,6 +123,9 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
 
     @Override
     protected void onDestroy() {
+        if (mMediaPlayer != null){
+            mMediaPlayer.release();
+        } 
         super.onDestroy();
     }
 
@@ -125,8 +137,31 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
         return super.onKeyDown(keyCode, event);
     }
 
-    /** Called when MediaPlayer is ready */
+    @Override
     public void onPrepared(MediaPlayer player) {
-        //player.start();
+        mediaPlayer.start();
     }
+
+
+    @Override
+    public void surfaceCreated(SurfaceHolder arg0) {
+
+      try {
+           mediaPlayer = new MediaPlayer();
+           mediaPlayer.setDisplay(surfaceHolder);
+           mediaPlayer.setDataSource(link_rtsp);
+           mediaPlayer.prepare();
+           mediaPlayer.setOnPreparedListener(this);
+           mediaPlayer.setAudioStreamType(AudioManager.AUDIOFOCUS_NONE);
+
+      } catch (IllegalArgumentException e) {
+        Log.i("RTSP","IllegalArgumentException: "+e.getMessage());
+      } catch (SecurityException e) {
+        Log.i("RTSP","SecurityException: "+e.getMessage());
+      } catch (IllegalStateException e) {
+        Log.i("RTSP","IllegalStateException: "+e.getMessage());
+      } catch (IOException e) {
+        Log.i("RTSP","IOException: "+e.getMessage());
+      }
+     }
 }
