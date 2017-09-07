@@ -54,21 +54,16 @@ import java.util.Arrays;
 
 import android.widget.Button;
 import android.view.KeyEvent;
-public class RtspActivity extends Activity{
+public class RtspActivity extends Activity implements MediaPlayer.OnPreparedListener{
+    private final static int VideoSizeChanged = -1;
     private String link_rtsp;
     private FakeR fakeR;
     private String mFilePath;
-
-    // display surface
     private SurfaceView mSurface;
     private SurfaceHolder holder;
-
     private MediaPlayer mMediaPlayer = null;
-    private Media m                  = null;
-
     private int mVideoWidth;
     private int mVideoHeight;
-    private final static int VideoSizeChanged = -1;
     private String [] optionString;
 
     @Override
@@ -94,14 +89,12 @@ public class RtspActivity extends Activity{
         button.setOnClickListener(new View.OnClickListener() {
           public void onClick(View v) {
              // Code here executes on main thread after user presses button
-            releasePlayer();
             RtspActivity.this.finish();
 
           }
         });
 
         mSurface = (SurfaceView) findViewById(fakeR.getId("id", "surface"));        
-        
         holder   = mSurface.getHolder();
         holder.setFixedSize(mVideoWidth, mVideoHeight);
 
@@ -110,18 +103,17 @@ public class RtspActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        createPlayer(link_rtsp);
+        
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        releasePlayer();
+        
     }
 
     @Override
     protected void onDestroy() {
-        releasePlayer();
         super.onDestroy();
     }
 
@@ -133,4 +125,8 @@ public class RtspActivity extends Activity{
         return super.onKeyDown(keyCode, event);
     }
 
+    /** Called when MediaPlayer is ready */
+    public void onPrepared(MediaPlayer player) {
+        //player.start();
+    }
 }
