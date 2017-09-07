@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-           id="cordova-plugin-rtsp-w3"
+           id="cordova-plugin-rtsp"
       version="1.0">
     <name>RTSP</name>
     <description>RTSP Player Plugin</description>
