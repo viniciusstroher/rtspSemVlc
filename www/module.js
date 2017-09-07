@@ -21,7 +21,7 @@
 
 var exec = require('cordova/exec');
 
-var RtspW3 = {
+var Rtsp = {
     abrirRtsp:function(link,p) {
         var params = {
           link	: link,
@@ -36,9 +36,9 @@ var RtspW3 = {
 
         /*RtspW3 -> nome no plugin.xml*/
         /*abrirRtsp -> metodo*/
-        exec(null, null, "RtspW3", "abrirRtsp", [params]);
+        exec(null, null, "Rtsp", "abrirRtsp", [params]);
         
     }
 };
 
-module.exports = RtspW3;
+module.exports = Rtsp;
