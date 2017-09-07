@@ -152,7 +152,7 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
            mediaPlayer.setDataSource(link_rtsp);
            mediaPlayer.prepare();
            mediaPlayer.setOnPreparedListener(this);
-           mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+           mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
       } catch (IllegalArgumentException e) {
         Log.i("RTSP","IllegalArgumentException: "+e.getMessage());
