@@ -106,7 +106,6 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
         mSurface = (SurfaceView) findViewById(fakeR.getId("id", "surface"));        
         holder   = mSurface.getHolder();
         holder.addCallback(this);
-        holder.setFixedSize(mVideoWidth, mVideoHeight);
     }
 
     @Override
