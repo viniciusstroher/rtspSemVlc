@@ -1,55 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- HOW USE
 
- $timeout(function(){
-    console.log("ABRE RTSP");
-    if(window.cordova){
-      //CAPTURAR  ffmpeg -f dshow -i video="Integrated Webcam" out.mp4 minha webcam
-      //ffmpeg -f dshow -i video="Integrated Webcam" -f rtsp://localhost:544/live
-      navigator.RtspW3.abrirRtsp("rtsp://localhost:554/onvif");
-    }
-  },1000);
-
-    TENTAR USAR ICECAST PARA STREAMING DE VIDEO !!!!
-    icecast
-#ffmpeg -r 25 -rtbufsize 2100M -f dshow -i video="Integrated Webcam" -r 25 -pix_fmt yuv420p -s hd720 -vcodec libx264 -preset ultrafast -b:v 2400k -maxrate 2400k -bufsize 600k -threads 0 -tune zerolatency -f flv rtmp://localhost/live/web
-
-
- ffmpeg -r 25 -rtbufsize 500k -f dshow -i video="Integrated Webcam" -r 25 -vcodec libx264 -b:v 240k -maxrate 240k -bufsize 500k -threads 0 -tune zerolatency -f flv rtmp://localhost/live/web
--->
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="cordova-plugin-rtsp-w3"
       version="1.0">
-    <name>RTSP W3</name>
-    <description>RTSP W3 Player Plugin</description>
+    <name>RTSP</name>
+    <description>RTSP Player Plugin</description>
     <license>Apache 2.0</license>
     <keywords>RTSP</keywords>
 
     <engines>
-        <engine name="cordova-android" version=">=3.6.0" /><!-- Requires CordovaPlugin.preferences -->
-    </engines>
+        <engine name="cordova-android" version=">=3.6.0" />
 
-    <js-module src="www/module.js" name="RtspW3">
+    <js-module src="www/module.js" name="Rtsp">
         <!-- acessa como navigator.RtspW3 -->
-        <clobbers target="navigator.RtspW3" />
+        <clobbers target="navigator.rtsp" />
     </js-module>
 
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <!-- NOME QUE O cordova exec vai chamar e o mapa da classe principal-->
-            <feature name="RtspW3">
-                <param name="android-package" value="org.apache.cordova.rtspw3.RtspW3"/>
+            <feature name="Rtsp">
+                <param name="android-package" value="org.apache.cordova.rtsp.Rtsp"/>
                 <param name="onload" value="true"/>
             </feature>
         </config-file>
 
-        <!-- configuracoes de activity -->
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             
-            <activity android:label="RTSP" android:name="org.apache.cordova.rtspw3.RtspW3Activity">
+            <activity android:label="RTSP" android:name="org.apache.cordova.rtsp.RtspActivity">
             </activity>
 
             <activity android:name="io.vov.vitamio.activity.InitActivity" 
@@ -70,40 +50,15 @@
             <uses-permission android:name="android.permission.INTERNET" />
 
         </config-file>
-        <!-- configuracoes de activity -->
 
-        <!-- classes -->
-        <source-file src="src/android/FakeR.java"          target-dir="src/org/apache/cordova/rtspw3" />
-        <source-file src="src/android/RtspW3.java"         target-dir="src/org/apache/cordova/rtspw3" />
-        <source-file src="src/android/RtspW3Activity.java" target-dir="src/org/apache/cordova/rtspw3" />
-        <!-- classes -->
+        <source-file src="src/android/FakeR.java"          target-dir="src/org/apache/cordova/rtsp" />
+        <source-file src="src/android/Rtsp.java"         target-dir="src/org/apache/cordova/rtsp" />
+        <source-file src="src/android/RtspActivity.java" target-dir="src/org/apache/cordova/rtsp" />
 
-        <!-- templates -->
-        <source-file src="src/android/res/layout/rtsp_w3_activity.xml" target-dir="res/layout"/>
-        <!-- templates -->
-        
-        <!-- gradle para baixa as dependencias -->
+        <source-file src="src/android/res/layout/rtsp_activity.xml" target-dir="res/layout"/>
+
         <framework src="build.gradle" custom="true" type="gradleReference" />
 
     </platform>
 
-    
-
-    <!-- ios -->
-    <!--
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="SplashScreen">
-                <param name="ios-package" value="CDVSplashScreen"/>
-                <param name="onload" value="true"/>
-            </feature>
-        </config-file>
-
-        <header-file src="src/ios/CDVSplashScreen.h" />
-        <source-file src="src/ios/CDVSplashScreen.m" />
-        <header-file src="src/ios/CDVViewController+SplashScreen.h" />
-        <source-file src="src/ios/CDVViewController+SplashScreen.m" />
-
-        <framework src="CoreGraphics.framework" />
-    </platform>-->
 </plugin>
