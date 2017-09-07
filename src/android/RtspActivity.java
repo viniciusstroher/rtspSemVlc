@@ -66,7 +66,7 @@ import java.io.IOException;
 public class RtspActivity extends Activity implements MediaPlayer.OnPreparedListener,SurfaceHolder.Callback{
     private final static int VideoSizeChanged = -1;
     private String link_rtsp;
-    private FakeR fakeR;
+    private FakeR  fakeR;
     private String mFilePath;
     private SurfaceView mSurface;
     private SurfaceHolder holder;
@@ -148,7 +148,7 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
 
       try {
            mediaPlayer = new MediaPlayer();
-           mediaPlayer.setDisplay(surfaceHolder);
+           mediaPlayer.setDisplay(holder);
            mediaPlayer.setDataSource(link_rtsp);
            mediaPlayer.prepare();
            mediaPlayer.setOnPreparedListener(this);
