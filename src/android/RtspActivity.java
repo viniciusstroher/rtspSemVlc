@@ -152,7 +152,7 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
            mediaPlayer.setDataSource(link_rtsp);
            mediaPlayer.prepare();
            mediaPlayer.setOnPreparedListener(this);
-           mediaPlayer.setAudioStreamType(AudioManager.AUDIOFOCUS_NONE);
+           mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
 
       } catch (IllegalArgumentException e) {
         Log.i("RTSP","IllegalArgumentException: "+e.getMessage());
@@ -163,5 +163,12 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
       } catch (IOException e) {
         Log.i("RTSP","IOException: "+e.getMessage());
       }
-     }
+    }
+
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder arg0) {
+    // TODO Auto-generated method stub
+      
+    }
 }
