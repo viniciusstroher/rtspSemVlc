@@ -62,7 +62,7 @@ import java.lang.IllegalArgumentException;
 import java.lang.SecurityException;
 import java.lang.IllegalStateException;
 import java.io.IOException;
-
+import android.media.AudioManager;
 public class RtspActivity extends Activity implements MediaPlayer.OnPreparedListener,SurfaceHolder.Callback{
     private final static int VideoSizeChanged = -1;
     private String link_rtsp;
@@ -123,8 +123,8 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
 
     @Override
     protected void onDestroy() {
-        if (mMediaPlayer != null){
-            mMediaPlayer.release();
+        if (mediaPlayer != null){
+            mediaPlayer.release();
         } 
         super.onDestroy();
     }
@@ -139,7 +139,7 @@ public class RtspActivity extends Activity implements MediaPlayer.OnPreparedList
 
     @Override
     public void onPrepared(MediaPlayer player) {
-        mediaPlayer.start();
+        player.start();
     }
 
 
